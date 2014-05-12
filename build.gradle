@@ -1,0 +1,29 @@
+import com.sun.org.apache.xalan.internal.xsltc.cmdline.Compile
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:1.2.3'
+    }
+}
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'tomcat'
+apply plugin: 'war'
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    def tomcatVersion = '6.0.29'
+    tomcat "org.apache.tomcat:catalina:${tomcatVersion}",
+            "org.apache.tomcat:coyote:${tomcatVersion}",
+            "org.apache.tomcat:jasper:${tomcatVersion}"
+    testCompile 'junit:junit:4+'
+    providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
+}
+
+
