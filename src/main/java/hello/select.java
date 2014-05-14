@@ -1,6 +1,7 @@
 package hello;
 
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,15 +15,13 @@ public class select extends HttpServlet {
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response)
             throws IOException, ServletException {
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        out.println("Beer Selection Advice<br>");
+
         String c = request.getParameter("color");
         BeerExpert beerExpert = new BeerExpert();
         List brands = beerExpert.getBrands(c);
-        for (Object brand : brands) {
-            out.println("<br>try " + brand);
-        }
-        out.close();
+        request.setAttribute("styles", brands);
+
+        RequestDispatcher view = request.getRequestDispatcher("result.jsp");
+        view.forward(request, response);
     }
 }
